@@ -268,8 +268,8 @@ document.addEventListener('DOMContentLoaded', function() {
         playerIcon.classList.add(currentPlayer === 'X' ? 'player-x' : 'player-o');
         
         // Update icon content
-        playerIcon.innerHTML = currentPlayer === 'X' ? 
-            '<i class="fas fa-times"></i>' : 
+        playerIcon.innerHTML = currentPlayer === 'X' ?
+            '<i class="fas fa-times"></i>' :
             '<i class="far fa-circle"></i>';
         
         // Update text
@@ -277,7 +277,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // If playing against computer and it's computer's turn
         if (vsComputer && currentPlayer === 'O') {
-            turnText.textContent = "Computer's Turn (Thinking...)";
+            turnText.textContent = "Computer's Turn";
         }
     }
     
