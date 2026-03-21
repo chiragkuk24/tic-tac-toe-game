@@ -21,30 +21,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const newGameButton = document.getElementById('new-game');
     const resetScoresButton = document.getElementById('reset-scores');
     const toggleModeButton = document.getElementById('toggle-mode');
-    const visitorCountElement = document.getElementById('visitor-count');
-    
-    // Visitor counter function
-    function updateVisitorCounter() {
-        let visitorCount = localStorage.getItem('ticTacToeVisitors');
-        if (!visitorCount) {
-            visitorCount = 1;
-        } else {
-            visitorCount = parseInt(visitorCount) + 1;
-        }
-        localStorage.setItem('ticTacToeVisitors', visitorCount);
-        
-        if (visitorCountElement) {
-            visitorCountElement.textContent = visitorCount;
-        }
-        
-        // Add subtle animation effect
-        if (visitorCountElement) {
-            visitorCountElement.style.transform = 'scale(1.2)';
-            setTimeout(() => {
-                visitorCountElement.style.transform = 'scale(1)';
-            }, 300);
-        }
-    }
     
     // Winning combinations
     const winningCombinations = [
@@ -74,9 +50,6 @@ document.addEventListener('DOMContentLoaded', function() {
         timerDisplay.textContent = ' (2s)';
         timerDisplay.style.display = 'none'; // Hide timer as requested
         playerTurnElement.appendChild(timerDisplay);
-        
-        // Update visitor counter
-        updateVisitorCounter();
         
         // Start timer for first player
         startTurnTimer();
@@ -161,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
         removeMoveWithAnimation(cell, moveIndex, player);
         
         // Update game status
-        const playerName = player === 'X' ? 'Player X' : (vsComputer && player === 'O' ? 'Computer' : 'Player O');
+        const playerName = player === 'X' ? 'Player X' : (vsComputer && player === 'O' ? 'AI' : 'Player O');
         updateGameStatus(`${playerName} took too long! Their last move was erased.`, 'tie');
         
         // Restart timer for current player (still same player's turn)
@@ -221,7 +194,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Switch player
         switchPlayer();
         
-        // If playing against computer and it's computer's turn
+        // If playing against AI and it's AI's turn
         if (vsComputer && currentPlayer === 'O' && gameActive) {
             setTimeout(makeComputerMove, 600);
         }
@@ -275,9 +248,9 @@ document.addEventListener('DOMContentLoaded', function() {
         // Update text
         turnText.textContent = `${currentPlayer === 'X' ? 'Player X' : 'Player O'}'s Turn`;
         
-        // If playing against computer and it's computer's turn
+        // If playing against AI and it's AI's turn
         if (vsComputer && currentPlayer === 'O') {
-            turnText.textContent = "Computer's Turn";
+            turnText.textContent = "AI's Turn";
         }
     }
     
@@ -314,7 +287,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         // Update game status
-        const winnerName = winner === 'X' ? 'Player X' : (vsComputer ? 'Computer' : 'Player O');
+        const winnerName = winner === 'X' ? 'Player X' : (vsComputer ? 'AI' : 'Player O');
         updateGameStatus(`${winnerName} wins! 🎉`, 'win');
         
         // Update player turn display to show winner
@@ -400,7 +373,7 @@ document.addEventListener('DOMContentLoaded', function() {
         startTurnTimer();
     }
     
-    // Computer move logic (simple AI)
+    // AI move logic (simple AI)
     function makeComputerMove() {
         if (!gameActive || currentPlayer !== 'O') return;
         

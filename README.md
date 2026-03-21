@@ -5,7 +5,7 @@ A modern, responsive Tic Tac Toe game built with HTML, CSS, and JavaScript. Play
 ## Features
 
 - **Two Game Modes**: Player vs Player or Player vs AI
-- **Smart AI**: Computer opponent with strategic gameplay
+- **Smart AI**: AI opponent with strategic gameplay
 - **Score Tracking**: Persistent scores saved in browser storage
 - **Responsive Design**: Works on desktop, tablet, and mobile devices
 - **Visual Effects**: Smooth animations, hover previews, and winning highlight
