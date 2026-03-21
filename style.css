@@ -380,6 +380,23 @@ footer i {
     margin: 0 5px;
 }
 
+/* Footer visitor counter */
+.visitor-counter-footer {
+    display: inline-block;
+    margin-left: 10px;
+    padding: 4px 10px;
+    background: rgba(0, 219, 222, 0.1);
+    border-radius: 12px;
+    border: 1px solid rgba(0, 219, 222, 0.3);
+    color: #00dbde;
+    font-weight: 500;
+}
+
+#visitor-count {
+    font-weight: 700;
+    color: #fc00ff;
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
     .container {

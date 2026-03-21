@@ -21,6 +21,30 @@ document.addEventListener('DOMContentLoaded', function() {
     const newGameButton = document.getElementById('new-game');
     const resetScoresButton = document.getElementById('reset-scores');
     const toggleModeButton = document.getElementById('toggle-mode');
+    const visitorCountElement = document.getElementById('visitor-count');
+    
+    // Visitor counter function
+    function updateVisitorCounter() {
+        let visitorCount = localStorage.getItem('ticTacToeVisitors');
+        if (!visitorCount) {
+            visitorCount = 1;
+        } else {
+            visitorCount = parseInt(visitorCount) + 1;
+        }
+        localStorage.setItem('ticTacToeVisitors', visitorCount);
+        
+        if (visitorCountElement) {
+            visitorCountElement.textContent = visitorCount;
+        }
+        
+        // Add subtle animation effect
+        if (visitorCountElement) {
+            visitorCountElement.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                visitorCountElement.style.transform = 'scale(1)';
+            }, 300);
+        }
+    }
     
     // Winning combinations
     const winningCombinations = [
@@ -50,6 +74,9 @@ document.addEventListener('DOMContentLoaded', function() {
         timerDisplay.textContent = ' (2s)';
         timerDisplay.style.display = 'none'; // Hide timer as requested
         playerTurnElement.appendChild(timerDisplay);
+        
+        // Update visitor counter
+        updateVisitorCounter();
         
         // Start timer for first player
         startTurnTimer();
