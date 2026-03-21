@@ -15,7 +15,19 @@
     <meta property="og:description" content="A modern, responsive Tic Tac Toe game with AI opponent">
     <meta property="og:type" content="website">
     
-    <!-- Google Analytics -->
+    <!-- Google Analytics Setup Instructions:
+         1. Create a Google Analytics 4 property at https://analytics.google.com/
+         2. Get your Measurement ID (starts with 'G-')
+         3. Replace 'G-XXXXXXXXXX' below with your actual Measurement ID
+         4. View analytics at https://analytics.google.com/
+         
+         To see visitor data:
+         - Go to https://analytics.google.com/
+         - Sign in with your Google account
+         - Select your Tic Tac Toe property
+         - View Reports > Realtime to see current visitors
+         - View Reports > Engagement > Overview for detailed analytics
+    -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -82,7 +94,7 @@
                     <li>The first player to get 3 of their marks in a row (horizontally, vertically, or diagonally) wins</li>
                     <li>If all 9 squares are filled without a winner, the game is a tie</li>
                     <li>Click "New Game" to start a fresh round</li>
-                    <li>Toggle "vs AI" to play against AI</li>
+                    <li>Toggle between "vs AI" and "vs Player" to play single player or 2 players respectively</li>
                 </ul>
             </div>
         </main>
