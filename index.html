@@ -6,7 +6,7 @@
     <meta name="description" content="A modern, responsive Tic Tac Toe game with AI opponent. Play against a friend or challenge the computer!">
     <meta name="keywords" content="tic tac toe, game, javascript, html5, css3, ai, puzzle">
     <meta name="author" content="Tic Tac Toe Game">
-    <title>Tic Tac Toe Game | Play X's and O's</title>
+    <title>Erasable Tic Tac Toe | Play X's and O's with a Twist</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -18,7 +18,7 @@
     <!-- Google Analytics Setup Instructions:
          1. Create a Google Analytics 4 property at https://analytics.google.com/
          2. Get your Measurement ID (starts with 'G-')
-         3. Replace 'G-XXXXXXXXXX' below with your actual Measurement ID
+         3. Replace 'G-Y97VWFE3CG' with your actual Measurement ID
          4. View analytics at https://analytics.google.com/
          
          To see visitor data:
@@ -28,20 +28,20 @@
          - View Reports > Realtime to see current visitors
          - View Reports > Engagement > Overview for detailed analytics
     -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y97VWFE3CG"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', 'G-XXXXXXXXXX');
+        gtag('config', 'G-Y97VWFE3CG');
     </script>
     <!-- End Google Analytics -->
 </head>
 <body>
     <div class="container">
         <header>
-            <h1><i class="fas fa-gamepad"></i> Tic Tac Toe</h1>
-            <p class="subtitle">A classic game of X's and O's</p>
+            <h1><i class="fas fa-gamepad"></i> Erasable Tic Tac Toe</h1>
+            <p class="subtitle">A classic game of X's and O's with a twist</p>
         </header>
 
         <main>
@@ -93,6 +93,7 @@
                     <li>Players take turns placing X and O on the 3x3 grid</li>
                     <li>The first player to get 3 of their marks in a row (horizontally, vertically, or diagonally) wins</li>
                     <li>If all 9 squares are filled without a winner, the game is a tie</li>
+                    <li><strong>Time Challenge</strong>: Each player has 2 seconds to make their move. If you don't move in time, your last move will be erased! If you still don't move, your second-last move will be erased, and so on.</li>
                     <li>Click "New Game" to start a fresh round</li>
                     <li>Toggle between "vs AI" and "vs Player" to play single player or 2 players respectively</li>
                 </ul>
