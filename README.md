@@ -4,7 +4,7 @@ A modern, responsive Tic Tac Toe game built with HTML, CSS, and JavaScript. Play
 
 ## Features
 
-- **Two Game Modes**: Player vs Player or Player vs Computer
+- **Two Game Modes**: Player vs Player or Player vs AI
 - **Smart AI**: Computer opponent with strategic gameplay
 - **Score Tracking**: Persistent scores saved in browser storage
 - **Responsive Design**: Works on desktop, tablet, and mobile devices
@@ -15,14 +15,14 @@ A modern, responsive Tic Tac Toe game built with HTML, CSS, and JavaScript. Play
 ## How to Play
 
 1. **Player vs Player Mode**: Two players take turns clicking cells to place X and O
-2. **Player vs Computer Mode**: Play against the computer AI (you are X)
+2. **Player vs AI Mode**: Play against the computer AI (you are X)
 3. **Objective**: Get three of your marks in a row (horizontally, vertically, or diagonally)
 4. **Controls**:
    - Click any empty cell to place your mark
    - Use keyboard numbers 1-9 to select cells (1 = top-left, 9 = bottom-right)
    - Press 'N' for New Game
    - Press 'R' to Reset Scores
-   - Press 'M' to toggle between Player vs Player and Player vs Computer modes
+   - Press 'M' to toggle between Player vs Player and Player vs AI modes
 
 ## Game Features
 

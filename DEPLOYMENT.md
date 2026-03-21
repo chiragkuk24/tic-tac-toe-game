@@ -42,7 +42,7 @@
 ## Testing Before Deployment
 The game has been tested locally and is fully functional with:
 - Player vs Player mode
-- Player vs Computer mode with AI
+- Player vs AI mode with AI
 - 3-second timeout with fade-out animation
 - Score tracking with localStorage
 - Responsive design for all devices

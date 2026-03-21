@@ -414,18 +414,18 @@ document.addEventListener('DOMContentLoaded', function() {
         return -1;
     }
     
-    // Toggle game mode (player vs player or player vs computer)
+    // Toggle game mode (player vs player or player vs AI)
     function toggleGameMode() {
         vsComputer = !vsComputer;
         gameMode = vsComputer ? 'computer' : 'player';
         
         // Update button text and icon
         const icon = toggleModeButton.querySelector('i');
-        const text = vsComputer ? ' vs Player' : ' vs Computer';
+        const text = vsComputer ? ' vs Player' : ' vs AI';
         
         toggleModeButton.innerHTML = vsComputer ? 
             '<i class="fas fa-user-friends"></i> vs Player' : 
-            '<i class="fas fa-robot"></i> vs Computer';
+            '<i class="fas fa-robot"></i> vs AI';
         
         // Reset game if switching modes mid-game
         if (gameActive && !gameBoard.every(cell => cell === '')) {
@@ -433,7 +433,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         updateGameStatus(vsComputer ? 
-            'Playing against Computer. You are X!' : 
+            'Playing against AI. You are X!' :
             'Playing against another player. Player X goes first!');
     }
     
@@ -513,6 +513,6 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Tic Tac Toe Keyboard Shortcuts:');
     console.log('N - New Game');
     console.log('R - Reset Scores');
-    console.log('M - Toggle Mode (Player vs Computer)');
+    console.log('M - Toggle Mode (Player vs AI)');
     console.log('1-9 - Select cell (1 = top-left, 9 = bottom-right)');
 });
