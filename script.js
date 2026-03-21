@@ -8,8 +8,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let vsComputer = true;
     let gameMode = 'computer'; // 'player' or 'computer'
     let turnTimer = null;
-    let timeLeft = 3; // seconds
-    let playerLastMove = { X: -1, O: -1 }; // Track each player's last move index
+    let timeLeft = 2; // seconds
+    let playerMoves = { X: [], O: [] }; // Track each player's moves (stack)
     
     // DOM elements
     const gameBoardElement = document.getElementById('game-board');
@@ -21,6 +21,30 @@ document.addEventListener('DOMContentLoaded', function() {
     const newGameButton = document.getElementById('new-game');
     const resetScoresButton = document.getElementById('reset-scores');
     const toggleModeButton = document.getElementById('toggle-mode');
+    const visitorCountElement = document.getElementById('visitor-count');
+    
+    // Visitor counter functions
+    function updateVisitorCounter() {
+        let visitorCount = localStorage.getItem('ticTacToeVisitors');
+        if (!visitorCount) {
+            visitorCount = 1;
+        } else {
+            visitorCount = parseInt(visitorCount) + 1;
+        }
+        localStorage.setItem('ticTacToeVisitors', visitorCount);
+        
+        if (visitorCountElement) {
+            visitorCountElement.textContent = visitorCount;
+        }
+        
+        // Add animation effect
+        if (visitorCountElement) {
+            visitorCountElement.style.transform = 'scale(1.3)';
+            setTimeout(() => {
+                visitorCountElement.style.transform = 'scale(1)';
+            }, 300);
+        }
+    }
     
     // Winning combinations
     const winningCombinations = [
@@ -43,12 +67,16 @@ document.addEventListener('DOMContentLoaded', function() {
         loadScoresFromStorage();
         updateScoreDisplay();
         attachEventListeners();
-        // Add timer display to player turn element
+        // Add timer display to player turn element (hidden by default)
         const timerDisplay = document.createElement('span');
         timerDisplay.id = 'timer-display';
         timerDisplay.className = 'timer-display';
-        timerDisplay.textContent = ' (3s)';
+        timerDisplay.textContent = ' (2s)';
+        timerDisplay.style.display = 'none'; // Hide timer as requested
         playerTurnElement.appendChild(timerDisplay);
+        
+        // Update visitor counter
+        updateVisitorCounter();
         
         // Start timer for first player
         startTurnTimer();
@@ -59,8 +87,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Clear any existing timer
         stopTurnTimer();
         
-        // Reset time
-        timeLeft = 3;
+        // Reset time to 2 seconds
+        timeLeft = 2;
         updateTimerDisplay();
         
         // Start new timer
@@ -87,16 +115,13 @@ document.addEventListener('DOMContentLoaded', function() {
         if (timerDisplay) {
             timerDisplay.textContent = ` (${timeLeft}s)`;
             
-            // Change color based on time left
+            // Change color based on time left (2 seconds total)
             if (timeLeft <= 1) {
-                timerDisplay.style.color = '#ff416c';
-                timerDisplay.style.fontWeight = 'bold';
-            } else if (timeLeft <= 2) {
-                timerDisplay.style.color = '#ffcc00';
+                timerDisplay.style.color = '#ff416c'; // Red for 1 second or less
                 timerDisplay.style.fontWeight = 'bold';
             } else {
-                timerDisplay.style.color = '#00dbde';
-                timerDisplay.style.fontWeight = 'normal';
+                timerDisplay.style.color = '#ffcc00'; // Yellow for 2 seconds
+                timerDisplay.style.fontWeight = 'bold';
             }
         }
     }
@@ -105,37 +130,58 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!gameActive) return;
         
         const player = currentPlayer;
-        const moveIndex = playerLastMove[player];
+        const moves = playerMoves[player];
         
-        // If this player has no previous move, nothing to erase
-        if (moveIndex === -1 || gameBoard[moveIndex] !== player) return;
+        // If this player has no moves, nothing to erase
+        if (moves.length === 0) return;
+        
+        // Get the last move (most recent)
+        const moveIndex = moves.pop();
+        
+        // Verify the move still belongs to this player
+        if (gameBoard[moveIndex] !== player) {
+            // If not, try to find another move
+            for (let i = moves.length - 1; i >= 0; i--) {
+                const idx = moves[i];
+                if (gameBoard[idx] === player) {
+                    moves.splice(i, 1); // Remove this move from array
+                    const cell = document.querySelector(`.cell[data-index="${idx}"]`);
+                    if (cell) {
+                        removeMoveWithAnimation(cell, idx, player);
+                    }
+                    return;
+                }
+            }
+            return;
+        }
         
         const cell = document.querySelector(`.cell[data-index="${moveIndex}"]`);
         if (!cell) return;
         
+        removeMoveWithAnimation(cell, moveIndex, player);
+        
+        // Update game status
+        const playerName = player === 'X' ? 'Player X' : (vsComputer && player === 'O' ? 'Computer' : 'Player O');
+        updateGameStatus(`${playerName} took too long! Their last move was erased.`, 'tie');
+        
+        // Restart timer for current player (still same player's turn)
+        startTurnTimer();
+    }
+    
+    function removeMoveWithAnimation(cell, index, player) {
         // Apply fade-out animation
         cell.classList.add('fade-out');
         
         // Wait for animation to complete before removing content
         setTimeout(() => {
-            // Erase this player's last move
-            gameBoard[moveIndex] = '';
+            // Erase this player's move
+            gameBoard[index] = '';
             cell.textContent = '';
             cell.classList.remove(player.toLowerCase());
             cell.classList.remove('fade-out');
             cell.style.opacity = '1';
             cell.style.transform = 'scale(1)';
         }, 800); // Match animation duration (0.8s)
-        
-        // Update player's last move tracking
-        playerLastMove[player] = -1;
-        
-        // Update game status
-        const playerName = player === 'X' ? 'Player X' : (vsComputer && player === 'O' ? 'Computer' : 'Player O');
-        updateGameStatus(`${playerName} took too long! Their move was erased with fade effect.`, 'tie');
-        
-        // Restart timer for current player (still same player's turn)
-        startTurnTimer();
     }
     
     // Create the game board cells
@@ -188,8 +234,8 @@ document.addEventListener('DOMContentLoaded', function() {
         cell.textContent = player;
         cell.classList.add(player.toLowerCase());
         
-        // Track this player's last move for potential timeout erasure
-        playerLastMove[player] = index;
+        // Track this player's moves for potential timeout erasure
+        playerMoves[player].push(index);
         
         // Stop timer since move was made
         stopTurnTimer();
