@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let gameBoard = ['', '', '', '', '', '', '', '', ''];
     let gameActive = true;
     let scores = { X: 0, O: 0, tie: 0 };
-    let vsComputer = false;
-    let gameMode = 'player'; // 'player' or 'computer'
+    let vsComputer = true;
+    let gameMode = 'computer'; // 'player' or 'computer'
     let turnTimer = null;
     let timeLeft = 3; // seconds
     let playerLastMove = { X: -1, O: -1 }; // Track each player's last move index
@@ -33,7 +33,13 @@ document.addEventListener('DOMContentLoaded', function() {
     function initGame() {
         createBoard();
         updatePlayerTurn();
-        updateGameStatus('Game started. Player X goes first!');
+        // Update button and status based on vsComputer
+        toggleModeButton.innerHTML = vsComputer ?
+            '<i class="fas fa-user-friends"></i> vs Player' :
+            '<i class="fas fa-robot"></i> vs AI';
+        updateGameStatus(vsComputer ?
+            'Playing against AI. You are X!' :
+            'Playing against another player. Player X goes first!');
         loadScoresFromStorage();
         updateScoreDisplay();
         attachEventListeners();
@@ -273,6 +279,11 @@ document.addEventListener('DOMContentLoaded', function() {
         if (timerDisplay) {
             timerDisplay.textContent = '';
         }
+
+        // Auto-restart after 2 seconds
+        setTimeout(() => {
+            resetGameBoard();
+        }, 2000);
     }
     
     // Handle tie
@@ -293,6 +304,11 @@ document.addEventListener('DOMContentLoaded', function() {
         if (timerDisplay) {
             timerDisplay.textContent = '';
         }
+
+        // Auto-restart after 2 seconds
+        setTimeout(() => {
+            resetGameBoard();
+        }, 2000);
     }
     
     // Update game status message
