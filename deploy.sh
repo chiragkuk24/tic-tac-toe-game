@@ -1,0 +1,32 @@
+#!/bin/bash
+# Deployment script for Tic Tac Toe game
+# This script helps prepare the project for GitHub Pages deployment
+
+echo "=== Tic Tac Toe Game Deployment ==="
+echo ""
+echo "Files in project directory:"
+ls -la
+echo ""
+echo "To deploy to GitHub Pages:"
+echo "1. Create a new repository on GitHub"
+echo "2. Run the following commands:"
+echo ""
+echo "   git init"
+echo "   git add ."
+echo "   git commit -m 'Deploy Tic Tac Toe game'"
+echo "   git branch -M main"
+echo "   git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO.git"
+echo "   git push -u origin main"
+echo ""
+echo "3. Go to repository Settings → Pages"
+echo "4. Select 'Deploy from branch' and choose 'main' branch"
+echo "5. Save and wait for deployment (usually 1-2 minutes)"
+echo ""
+echo "Your game will be available at: https://YOUR_USERNAME.github.io/YOUR_REPO/"
+echo ""
+echo "Alternative deployment options:"
+echo "- Netlify: Drag and drop this folder to netlify.com"
+echo "- Vercel: Import repository to vercel.com"
+echo "- Any static web hosting service"
+echo ""
+echo "The game is ready for deployment!"
