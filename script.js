@@ -10,6 +10,9 @@ document.addEventListener('DOMContentLoaded', function() {
     let turnTimer = null;
     let timeLeft = 2; // seconds
     let playerMoves = { X: [], O: [] }; // Track each player's moves (stack)
+    let playerLastMove = { X: -1, O: -1 }; // Track last move for each player (used in timer)
+    let nextStarter = 'X'; // Who starts the next round
+    let roundStarter = 'X'; // Who started the current round
     
     // DOM elements
     const gameBoardElement = document.getElementById('game-board');
@@ -273,6 +276,9 @@ document.addEventListener('DOMContentLoaded', function() {
         saveScoresToStorage();
         updateScoreDisplay();
         
+        // Set next starter to loser (opposite of winner)
+        nextStarter = winner === 'X' ? 'O' : 'X';
+        
         // Stop timer since game is over
         stopTurnTimer();
         
@@ -311,6 +317,9 @@ document.addEventListener('DOMContentLoaded', function() {
         scores.tie++;
         saveScoresToStorage();
         updateScoreDisplay();
+        
+        // Set next starter to alternate (opposite of who started this round)
+        nextStarter = roundStarter === 'X' ? 'O' : 'X';
         
         // Stop timer since game is over
         stopTurnTimer();
@@ -351,7 +360,8 @@ document.addEventListener('DOMContentLoaded', function() {
     function resetGameBoard() {
         gameBoard = ['', '', '', '', '', '', '', '', ''];
         gameActive = true;
-        currentPlayer = 'X';
+        currentPlayer = nextStarter;
+        roundStarter = nextStarter; // Track who started this round
         
         // Reset timer variables
         stopTurnTimer();
@@ -367,10 +377,23 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         updatePlayerTurn();
-        updateGameStatus('New game started. Player X goes first!');
+        
+        // Update status message based on who starts
+        let starterName;
+        if (currentPlayer === 'X') {
+            starterName = 'Player X';
+        } else {
+            starterName = vsComputer ? 'AI' : 'Player O';
+        }
+        updateGameStatus(`New game started. ${starterName} goes first!`);
         
         // Start timer for first player
         startTurnTimer();
+        
+        // If AI starts first, trigger AI move after a short delay
+        if (vsComputer && currentPlayer === 'O') {
+            setTimeout(makeComputerMove, 600);
+        }
     }
     
     // AI move logic (simple AI)
