@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let vsComputer = true;
     let gameMode = 'computer'; // 'player' or 'computer'
     let turnTimer = null;
-    let timeLeft = 2; // seconds
+    let timeLeft = 1.5; // seconds
     let playerMoves = { X: [], O: [] }; // Track each player's moves (stack)
     let playerLastMove = { X: -1, O: -1 }; // Track last move for each player (used in timer)
     let nextStarter = 'X'; // Who starts the next round
@@ -63,8 +63,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Clear any existing timer
         stopTurnTimer();
         
-        // Reset time to 2 seconds
-        timeLeft = 2;
+        // Reset time to 1.5 seconds
+        timeLeft = 1.5;
         updateTimerDisplay();
         
         // Start new timer
@@ -91,12 +91,12 @@ document.addEventListener('DOMContentLoaded', function() {
         if (timerDisplay) {
             timerDisplay.textContent = ` (${timeLeft}s)`;
             
-            // Change color based on time left (2 seconds total)
+            // Change color based on time left (1.5 seconds total)
             if (timeLeft <= 1) {
                 timerDisplay.style.color = '#ff416c'; // Red for 1 second or less
                 timerDisplay.style.fontWeight = 'bold';
             } else {
-                timerDisplay.style.color = '#ffcc00'; // Yellow for 2 seconds
+                timerDisplay.style.color = '#ffcc00'; // Yellow for >1 second
                 timerDisplay.style.fontWeight = 'bold';
             }
         }
@@ -305,10 +305,10 @@ document.addEventListener('DOMContentLoaded', function() {
             timerDisplay.textContent = '';
         }
 
-        // Auto-restart after 2 seconds
+        // Auto-restart after 1 second
         setTimeout(() => {
             resetGameBoard();
-        }, 2000);
+        }, 1000);
     }
     
     // Handle tie
@@ -333,10 +333,10 @@ document.addEventListener('DOMContentLoaded', function() {
             timerDisplay.textContent = '';
         }
 
-        // Auto-restart after 2 seconds
+        // Auto-restart after 1 second
         setTimeout(() => {
             resetGameBoard();
-        }, 2000);
+        }, 1000);
     }
     
     // Update game status message
